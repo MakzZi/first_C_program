@@ -14,6 +14,11 @@
 
 int main() {
     char buffer[MAX_LENGTH];
+    printf("Create login: ");
+    scanf(" %s", buffer);
+    getchar();
+    char login[strlen(buffer)+1];
+    strcpy(login, buffer);
     int upper;
     int lower;
     int digit;
@@ -21,18 +26,21 @@ int main() {
     while (1) {
         upper = lower = digit = 0;
         i = -1;
-        printf("Create new password (maximum length %d characters): ", MAX_LENGTH);
+        printf("Create new password: ");
         do {
             i++;
             buffer[i] = getchar();
             if (isdigit(buffer[i])) {
                 digit = 1;
+                continue;
             }
             if (islower(buffer[i])) {
                 lower = 1;
+                continue;
             }
             if (isupper(buffer[i])) {
                 upper = 1;
+                continue;
             }
         } while (buffer[i] != '\n');
         buffer[i] = '\0';
@@ -53,8 +61,8 @@ int main() {
             printf("The password must be greater than or equal to %d characters!\n", PASS_LENGTH);
         }
     }
-    char string[i+1];
-    strcpy(string, buffer);
-    printf("Password is confirmed!\n");
+    char password[i+1];
+    strcpy(password, buffer);
+    printf("Login and password is confirmed!\n");
     return 0;
 }
