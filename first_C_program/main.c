@@ -7,62 +7,30 @@
 //
 
 #include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#define MAX_LENGTH 128
-#define PASS_LENGTH 8
+#include <stdlib.h>
+#include <time.h>
 
 int main() {
-    char buffer[MAX_LENGTH];
-    printf("Create login: ");
-    scanf(" %s", buffer);
-    getchar();
-    char login[strlen(buffer)+1];
-    strcpy(login, buffer);
-    int upper;
-    int lower;
-    int digit;
-    int i = -1;
-    while (1) {
-        upper = lower = digit = 0;
-        i = -1;
-        printf("Create new password: ");
-        do {
-            i++;
-            buffer[i] = getchar();
-            if (isdigit(buffer[i])) {
-                digit = 1;
-                continue;
-            }
-            if (islower(buffer[i])) {
-                lower = 1;
-                continue;
-            }
-            if (isupper(buffer[i])) {
-                upper = 1;
-                continue;
-            }
-        } while (buffer[i] != '\n');
-        buffer[i] = '\0';
-        if (strlen(buffer) >= PASS_LENGTH) {
-            if (digit && upper && lower) {
-                break;
-            }
-            else {
-                if (!digit) {
-                    printf("The password must have at least one digit!\n");
-                }
-                if (!lower || !upper) {
-                    printf("The password must contain upper and lower case letters!\n");
-                }
-            }
-        }
-        else {
-            printf("The password must be greater than or equal to %d characters!\n", PASS_LENGTH);
-        }
+    int dice1, dice2;
+    int total1, total2;
+    time_t t;
+    srand(time(&t));
+    dice1 = (rand() % 5) + 1;
+    dice2 = (rand() % 5) + 1;
+    total1 = dice1 + dice2;
+    printf("The first throw of a pair of dices: %d and %d.\nTheir sum is equal to: %d.\n", dice1, dice2, total1);
+    dice1 = (rand() % 5) + 1;
+    dice2 = (rand() % 5) + 1;
+    total2 = dice1 + dice2;
+    printf("The second throw of a pair of dices: %d and %d.\nTheir sum is equal to: %d.\n", dice1, dice2, total2);
+    if (total1 > total2) {
+        printf("The sum of the first throw is more than the sum of the second throw.\n");
     }
-    char password[i+1];
-    strcpy(password, buffer);
-    printf("Login and password is confirmed!\n");
+    else if (total2 > total1) {
+        printf("The sum if the second throw is more than the sum of the first throw.\n");
+    }
+    else {
+        printf("Throws is equal.\n");
+    }
     return 0;
 }
