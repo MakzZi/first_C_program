@@ -9,28 +9,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#define SIZE 20
+#define RANGE 100
 
 int main() {
-    int dice1, dice2;
-    int total1, total2;
-    time_t t;
-    srand(time(&t));
-    dice1 = (rand() % 5) + 1;
-    dice2 = (rand() % 5) + 1;
-    total1 = dice1 + dice2;
-    printf("The first throw of a pair of dices: %d and %d.\nTheir sum is equal to: %d.\n", dice1, dice2, total1);
-    dice1 = (rand() % 5) + 1;
-    dice2 = (rand() % 5) + 1;
-    total2 = dice1 + dice2;
-    printf("The second throw of a pair of dices: %d and %d.\nTheir sum is equal to: %d.\n", dice1, dice2, total2);
-    if (total1 > total2) {
-        printf("The sum of the first throw is more than the sum of the second throw.\n");
+    srand(time(NULL));
+    int nums[SIZE];
+    int i, bubble, swiped, buffer;
+    printf("UNSORTED: ");
+    for (i = 0; i < SIZE; i++) {
+        nums[i] = (rand() % RANGE) + 1;
+        printf("%d;  ", nums[i]);
     }
-    else if (total2 > total1) {
-        printf("The sum if the second throw is more than the sum of the first throw.\n");
+    for (bubble = 0; bubble < SIZE-1; bubble++) {
+        swiped = 0;
+        for (i = bubble; i < SIZE; i++) {
+            if (nums[bubble] > nums[i]) {
+                buffer = nums[bubble];
+                nums[bubble] = nums[i];
+                nums[i] = buffer;
+                swiped = 1;
+            }
+        }
+        if (!swiped) break;
     }
-    else {
-        printf("Throws is equal.\n");
+    printf("\n  SORTED: ");
+    for (i = 0; i < SIZE-1; i++) {
+        printf("%d;  ", nums[i]);
     }
+    printf("%d.\n", nums[SIZE-1]);
     return 0;
 }
